@@ -1,0 +1,28 @@
+{
+  "name": "workers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsreportonline/workers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsreportonline/workers/issues"
+  },
+  "homepage": "https://github.com/jsreportonline/workers#readme",
+  "dependencies": {
+    "bluebird": "3.4.6",
+    "mongodb": "2.2.10",
+    "request": "2.75.0"
+  },
+  "devDependencies": {
+    "eslint": "3.3.1",
+    "standard": "7.1.2"
+  }
+}
