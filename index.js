@@ -21,12 +21,7 @@ mongo().then(() => {
     })
 
     req.on('end', function () {
-      process(JSON.parse(data), res).catch((e) => {
-        console.log('should response error', e.stack)
-        res.statusCode = 500
-        res.setHeader('Content-Type', 'text/plain')
-        return res.end(e.stack)
-      })
+      process(JSON.parse(data), res)
     })
   })
 
