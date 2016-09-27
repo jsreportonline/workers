@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER Jan Blaha
 EXPOSE 5488
 
-RUN apt-get update && apt-get install -y  curl && \
+RUN apt-get update && apt-get install -y curl sudo && \
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && \
     apt-get install -y nodejs docker.io
 
