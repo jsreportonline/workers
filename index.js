@@ -2,7 +2,14 @@ const http = require('http')
 const mongo = require('./lib/mongo')
 const ping = require('./lib/ping')
 const status = require('./lib/status')
-const process = require('./lib/process')
+const execute = require('./lib/execute')
+
+const error = (err, res) => {
+  console.log(err)
+  res.statusCode = 500
+  res.setHeader('Content-Type', 'text/plain')
+  return res.end(err.stack)
+}
 
 mongo().then(() => {
   return ping()
@@ -21,7 +28,12 @@ mongo().then(() => {
     })
 
     req.on('end', function () {
-      process(JSON.parse(data), res)
+      execute(JSON.parse(data)).then((stream) => {
+        stream.on('error', (e) => {
+          console.log('error')
+          error(e, res)
+        }).pipe(res)
+      }).catch((err) => error(err, res))
     })
   })
 
