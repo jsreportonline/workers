@@ -190,7 +190,12 @@ describe('execute', () => {
       return workers.t[1]
     }
 
-    const post = (opts) => new stream.Readable()
+    const post = (opts) => {
+      const res = new stream.Readable()
+      res.push(null)
+      res.resume()
+      return res
+    }
 
     tenants.insert({
       name: 'test'
