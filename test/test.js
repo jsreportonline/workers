@@ -174,6 +174,31 @@ describe('execute', () => {
       containerType: 't'
     }, post, () => true, workers)).catch(done)
   })
+
+  it('should restart last used worker after process', (done) => {
+    workers.t = [{
+      url: 'http://localhost:2000',
+      tenant: 'test'
+    }, {
+      url: 'http://localhost:2001',
+      lastUsed: 1,
+      tenant: 'a'
+    }]
+
+    workers.t[1].restart = () => {
+      done()
+      return workers.t[1]
+    }
+
+    const post = (opts) => new stream.Readable()
+
+    tenants.insert({
+      name: 'test'
+    }).then(() => execute({
+      tenant: 'test',
+      containerType: 't'
+    }, post, () => true, workers)).catch(done)
+  })
 })
 
 
