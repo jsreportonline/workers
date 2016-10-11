@@ -4,7 +4,7 @@ process.env['connectionString:database'] = 'workers-test'
 process.env.stack = 'test'
 process.env.ip = '0.0.0.0'
 
-require('should')
+const should = require('should')
 const mongo = require('../lib/mongo')
 const execute = require('../lib/execute')
 const stream = require('stream')
@@ -125,6 +125,35 @@ describe('execute', () => {
       tenant: 'test',
       containerType: 't'
     }, post, () => true, workers)).catch(done)
+  })
+
+  it('should unset old tenant worker ip in mongo', () => {
+    workers.t = [{
+      url: 'http://localhost:2000',
+      tenant: 'a'
+    }]
+    workers.t[0].restart = () => workers.t[0]
+
+    const post = (opts) => {
+      const res = new stream.Readable()
+      res.push(null)
+      res.resume()
+      return res
+    }
+
+    return tenants.insert({
+      name: 'test'
+    }).then(() => tenants.insert({
+      name: 'a',
+      workerIp: {
+        'test': '0.0.0.0'
+      }
+    })).then(() => execute({
+      tenant: 'test',
+      containerType: 't'
+    }, post, () => true, workers)).then(() => tenants.findOneAsync({ name: 'a' }).then((t) => {
+      should(t.workerIp).not.be.ok
+    }))
   })
 
   it('should queue request when all workers are busy', (done) => {
