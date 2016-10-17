@@ -5,7 +5,6 @@ const status = require('./lib/status')
 const execute = require('./lib/execute')
 
 const error = (err, res) => {
-  console.log(err)
   res.statusCode = 500
   res.setHeader('Content-Type', 'text/plain')
   return res.end(err.stack)
@@ -30,7 +29,6 @@ mongo().then(() => {
     req.on('end', function () {
       execute(JSON.parse(data)).then((stream) => {
         stream.on('error', (e) => {
-          console.log('error')
           error(e, res)
         }).pipe(res)
       }).catch((err) => error(err, res))
