@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:yakkety
 MAINTAINER Jan Blaha
 EXPOSE 5488
 
