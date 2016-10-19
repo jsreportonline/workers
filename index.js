@@ -16,11 +16,20 @@ mongo().then(() => {
   return status()
 }).then(() => {
   const server = http.createServer((req, res) => {
+    const lastHardError = execute.lastHardError()
+
     if (req.method === 'GET') {
+      if (lastHardError && req.url === '/status') {
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'text/plain')
+        return res.end(lastHardError.stack)
+      }
+
       res.statusCode = 200
       res.setHeader('Content-Type', 'text/plain')
-      return res.end('OK')
+      return res.end('ok')
     }
+
     var data = ''
     req.on('data', function (chunk) {
       data += chunk.toString()
