@@ -3,6 +3,7 @@ const mongo = require('./lib/mongo')
 const ping = require('./lib/ping')
 const status = require('./lib/status')
 const execute = require('./lib/execute')
+const win = require('./lib/win')
 const winston = require('winston')
 const path = require('path')
 const fs = require('fs')
@@ -40,6 +41,8 @@ mongo().then(() => {
 }).then(() => {
   return status()
 }).then(() => {
+  return win()
+}).then(() => {
   const server = http.createServer((req, res) => {
     const lastHardError = execute.lastHardError()
 
@@ -74,9 +77,4 @@ mongo().then(() => {
   winston.error(e)
   process.exit(1)
 })
-
-
-
-
-
 

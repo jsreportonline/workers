@@ -14,6 +14,7 @@
             "workerUrls:w": "http://localhost:5000",
             "workerUrls:h": "http://localhost:7000",
             "workerUrls:e": "http://localhost:8000",
+            "workerUrls:win": "http://localhost:12000",
             "stack": "dev",
             "containerRestartPolicy": "no"
          }, 
