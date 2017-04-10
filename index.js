@@ -30,6 +30,10 @@ winston.add(winston.transports.File, {
 winston.info('starting workers')
 
 const error = (err, res) => {
+  if (res.finished) {
+    return
+  }
+
   winston.error(err)
   res.statusCode = 500
   res.setHeader('Content-Type', 'text/plain')
@@ -64,6 +68,10 @@ mongo().then(() => {
     })
 
     req.on('end', function () {
+      if (res.finished) {
+        return
+      }
+
       execute(JSON.parse(data)).then((stream) => {
         stream.on('error', (e) => {
           error(e, res)
