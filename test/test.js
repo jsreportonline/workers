@@ -234,5 +234,3 @@ describe('execute', () => {
     }, post, () => true, workers)).catch(done)
   })
 })
-
-

@@ -85,4 +85,3 @@ mongo().then(() => {
   winston.error(e)
   process.exit(1)
 })
-

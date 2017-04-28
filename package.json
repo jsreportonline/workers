@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "standard",
     "test": "mocha test"
   },
   "repository": {
@@ -16,6 +17,12 @@
     "url": "https://github.com/jsreportonline/workers/issues"
   },
   "homepage": "https://github.com/jsreportonline/workers#readme",
+  "standard": {
+    "env": {
+      "node": true,
+      "mocha": true
+    }
+  },
   "dependencies": {
     "bluebird": "3.4.6",
     "mongodb": "2.2.10",
@@ -23,9 +30,9 @@
     "winston": "2.3.0"
   },
   "devDependencies": {
-    "eslint": "3.3.1",
+    "eslint": "3.19.0",
     "mocha": "3.1.1",
     "should": "11.1.1",
-    "standard": "7.1.2"
+    "standard": "9.0.2"
   }
 }
