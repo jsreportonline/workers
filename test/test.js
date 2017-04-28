@@ -152,7 +152,7 @@ describe('execute', () => {
       tenant: 'test',
       containerType: 't'
     }, post, () => true, workers)).then(() => tenants.findOneAsync({ name: 'a' }).then((t) => {
-      should(t.workerIp).not.be.ok
+      should(t.workerIp.test).not.be.ok()
     }))
   })
 
