@@ -62,17 +62,17 @@ mongo().then(() => {
       return res.end('ok')
     }
 
-    var data = ''
+    var data = []
     req.on('data', function (chunk) {
-      data += chunk.toString()
+      data.push(chunk)
     })
 
     req.on('end', function () {
       if (res.finished) {
         return
       }
-
-      execute(JSON.parse(data)).then((stream) => {
+      
+      execute(JSON.parse(Buffer.concat(data).toString())).then((stream) => {
         stream.on('error', (e) => {
           error(e, res)
         }).pipe(res)
